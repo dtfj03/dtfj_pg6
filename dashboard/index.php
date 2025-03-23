@@ -1,6 +1,19 @@
 <?php
-include('../config.php');
+//include('../config.php');
 include('../organizer/verify-org.php');
+
+$servername = "localhost:3306";
+$username = "dtfj_pg6";
+$password = "mobiledev";
+$database = "dtfj_pg6";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $database);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+} 
 
 if (!isset($_SESSION['org_id'])) {
     header("Location: ../login/login.php");
