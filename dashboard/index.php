@@ -1,5 +1,11 @@
 <?php
-include('../config.php');
+//config.php
+$servername = "localhost:3306";
+$username = "dtfj_pg6";
+$password = "mobiledev";
+$database = "dtfj_pg6";
+$conn = mysqli_connect($servername, $username, $password, $database);
+
 include('../organizer/verify-org.php');
 
 if (!isset($_SESSION['org_id'])) {
@@ -70,8 +76,3 @@ $result = $conn->query("SELECT * FROM event ORDER BY event_date ASC");
     </div>
 </body>
 </html>
-
-<?php
-$stmt->close();
-$conn->close();
-?>
