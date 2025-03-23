@@ -7,19 +7,25 @@
         exit();
     }
 
-    $org_id = $_SESSION['org_id'];
+    // Check if $conn is properly initialized
+    if (!$conn) {
+        die("Database connection failed.");
+    }
 
-    $sql = "SELECT * FROM organizer WHERE org_id = '$org_id'";
-    $result = $conn->query($sql);
+    $sql = "SELECT * FROM organizer WHERE org_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $org_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if ($result->num_row > 0) {
+    if ($result->num_rows > 0) { // Fixed num_row to num_rows
         $row = $result->fetch_assoc();
-
         $name = $row['org_name'];
         $email = $row['org_email'];
         $phone = $row['org_phone'];
+    } else {
+        die("Error: Organizer not found.");
     }
-
 ?>
 
 <!DOCTYPE html>
