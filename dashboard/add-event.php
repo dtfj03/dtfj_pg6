@@ -27,7 +27,7 @@ if(isset($_SESSION['org_id'])) {
         <aside class="sidebar">
             <ul>
                 <li><a href="add-event.php"><i class="fas fa-calendar-plus"></i> Add Event</a></li>
-                <li><a href="edit-profile.php"><i class="fas fa-user-edit"></i> Edit Profile</a></li>
+                <li><a href="../organizer/edit-profile.php"><i class="fas fa-user-edit"></i> Edit Profile</a></li>
                 <li><a href="../login/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
         </aside>

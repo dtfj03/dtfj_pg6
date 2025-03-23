@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('../fetch-organizer.php'); // Fetch user data
+include('fetch-organizer.php'); // Fetch user data
 ?>
 
 <!DOCTYPE html>

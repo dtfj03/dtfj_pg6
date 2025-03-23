@@ -1,13 +1,20 @@
 <?php
-    include('../config.php');
-    include('../organizer/verify-org.php');
+include('../config.php');
+include('../organizer/verify-org.php');
 
+if (!isset($_SESSION['org_id'])) {
+    header("Location: ../login/login.php");
+    exit();
+}
 
-    if (!isset($_SESSION['org_id'])) {
-        header("Location: ../login/login.php");
-        exit();
-    }
+$org_id = $_SESSION['org_id'];
 
+// Fetch events from the database
+$query = "SELECT event_name, event_date, event_venue FROM events WHERE org_id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $org_id);
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -41,16 +48,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Sample Event</td>
-                            <td>2025-04-15</td>
-                            <td>Sample Location</td>
-                            <td>
-                                <button class="qr-btn">Show QR</button>
-                                <button class="edit-btn">Edit</button>
-                                <button class="delete-btn">Delete</button>
-                            </td>
-                        </tr>
+                        <?php if ($result->num_rows > 0): ?>
+                            <?php while ($row = $result->fetch_assoc()): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($row['event_name']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['event_date']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['event_venue']); ?></td>
+                                    <td>
+                                        <button class="qr-btn">Show QR</button>
+                                        <button class="edit-btn">Edit</button>
+                                        <button class="delete-btn">Delete</button>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="4">No events found.</td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
@@ -58,3 +73,8 @@
     </div>
 </body>
 </html>
+
+<?php
+$stmt->close();
+$conn->close();
+?>
