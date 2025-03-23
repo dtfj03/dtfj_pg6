@@ -1,5 +1,8 @@
 <?php
 
+include('../config.php');
+include('../organizer/verify-org.php');
+
 if(isset($_SESSION['org_id'])) {
     $org_id = $_SESSION['org_id'];
 } else {
@@ -46,7 +49,7 @@ if(isset($_SESSION['org_id'])) {
                     <label for="event_timeend">End Time</label>
                     <input type="time" id="event_timeend" name="event_timeend" class="input" required>
 
-                    <input type="hidden" id="org_id" name="org_id" value="">
+                    <input type="hidden" id="org_id" name="org_id" value="<?php $org_id ?>">
                     
                     <input type="submit" name="submit" value="Add Event">
                 </form>
