@@ -1,19 +1,6 @@
 <?php
-//include('../config.php');
+include('../config.php');
 include('../organizer/verify-org.php');
-
-$servername = "localhost:3306";
-$username = "dtfj_pg6";
-$password = "mobiledev";
-$database = "dtfj_pg6";
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $database);
-
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-} 
 
 if (!isset($_SESSION['org_id'])) {
     header("Location: ../login/login.php");
@@ -23,11 +10,8 @@ if (!isset($_SESSION['org_id'])) {
 $org_id = $_SESSION['org_id'];
 
 // Fetch events from the database
-$query = "SELECT event_name, event_date, event_venue FROM events WHERE org_id = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("s", $org_id);
-$stmt->execute();
-$result = $stmt->get_result();
+$result = $conn->query("SELECT * FROM event ORDER BY event_date ASC");
+
 ?>
 
 <!DOCTYPE html>
