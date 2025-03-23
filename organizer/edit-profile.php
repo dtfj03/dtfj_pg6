@@ -1,31 +1,48 @@
 <?php
-    include('../config.php');
-    include('../organizer/verify-org.php');
+session_start();
+include('../config.php');
+include('../organizer/verify-org.php');
 
-    if (!isset($_SESSION['org_id'])) {
-        header("Location: ../login/login.php");
-        exit();
-    }
+// Ensure user is logged in
+if (!isset($_SESSION['org_id'])) {
+    header("Location: ../login/login.php");
+    exit();
+}
 
-    // Check if $conn is properly initialized
-    if (!$conn) {
-        die("Database connection failed.");
-    }
+// Retrieve session org_id
+$org_id = $_SESSION['org_id'];
 
-    $sql = "SELECT * FROM organizer WHERE org_id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $org_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
+// Debug: Check if database connection is valid
+if (!$conn || $conn->connect_error) {
+    die("Database connection failed: " . ($conn ? $conn->connect_error : "Invalid connection object"));
+}
 
-    if ($result->num_rows > 0) { // Fixed num_row to num_rows
-        $row = $result->fetch_assoc();
-        $name = $row['org_name'];
-        $email = $row['org_email'];
-        $phone = $row['org_phone'];
-    } else {
-        die("Error: Organizer not found.");
-    }
+// Prepare the SQL statement
+$sql = "SELECT org_name, org_email, org_phone FROM organizer WHERE org_id = ?";
+$stmt = $conn->prepare($sql);
+
+if (!$stmt) {
+    die("SQL Prepare Failed: " . $conn->error);
+}
+
+// Bind parameters and execute
+$stmt->bind_param("s", $org_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Fetch user data if exists
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $name = $row['org_name'];
+    $email = $row['org_email'];
+    $phone = $row['org_phone'];
+} else {
+    die("Error: Organizer not found.");
+}
+
+// Close the statement
+$stmt->close();
+?>
 ?>
 
 <!DOCTYPE html>
