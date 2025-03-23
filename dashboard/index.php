@@ -3,7 +3,7 @@
 
 
     if (!isset($_SESSION['org_id'])) {
-        header("Location: ../login/login.php");
+        //header("Location: ../login/login.php");
         exit();
     }
 
