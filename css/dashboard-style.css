@@ -86,12 +86,17 @@ th {
 }
 
 /* Buttons */
-.edit-btn, .delete-btn {
+.edit-btn, .delete-btn, .qr-btn {
     padding: 5px 10px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
     margin-right: 5px;
+}
+
+.qr-btn {
+    background-color: #17a2b8;
+    color: white;
 }
 
 .edit-btn {
@@ -104,10 +109,56 @@ th {
     color: white;
 }
 
+.qr-btn:hover {
+    background-color: #138496;
+}
+
 .edit-btn:hover {
     background-color: #e0a800;
 }
 
 .delete-btn:hover {
     background-color: #c82333;
+}
+
+/* Event Form */
+.event-form {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.event-form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+.event-form .input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.event-form input[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+}
+
+.event-form input[type="submit"]:hover {
+    background-color: #218838;
 }
