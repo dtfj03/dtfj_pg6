@@ -24,7 +24,8 @@
         <aside class="sidebar">
             <ul>
                 <li><a href="add-event.php"><i class="fas fa-calendar-plus"></i> Add Event</a></li>
-                <li><a href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                <li><a href="../organizer/edit-profile.php"> Edit Profile</a></li>
+                <li><a href="../login/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
         </aside>
         <div class="dashboard-content">
