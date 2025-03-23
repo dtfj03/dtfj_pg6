@@ -1,48 +1,6 @@
 <?php
 session_start();
-include('../config.php');
-include('../organizer/verify-org.php');
-
-// Ensure user is logged in
-if (!isset($_SESSION['org_id'])) {
-    header("Location: ../login/login.php");
-    exit();
-}
-
-// Retrieve session org_id
-$org_id = $_SESSION['org_id'];
-
-// Debug: Check if database connection is valid
-if (!$conn || $conn->connect_error) {
-    die("Database connection failed: " . ($conn ? $conn->connect_error : "Invalid connection object"));
-}
-
-// Prepare the SQL statement
-$sql = "SELECT org_name, org_email, org_phone FROM organizer WHERE org_id = ?";
-$stmt = $conn->prepare($sql);
-
-if (!$stmt) {
-    die("SQL Prepare Failed: " . $conn->error);
-}
-
-// Bind parameters and execute
-$stmt->bind_param("s", $org_id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-// Fetch user data if exists
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $name = $row['org_name'];
-    $email = $row['org_email'];
-    $phone = $row['org_phone'];
-} else {
-    die("Error: Organizer not found.");
-}
-
-// Close the statement
-$stmt->close();
-?>
+include('../fetch-organizer.php'); // Fetch user data
 ?>
 
 <!DOCTYPE html>
@@ -67,16 +25,16 @@ $stmt->close();
             <h1 class="title">Edit Profile</h1>
             <div class="profile-form">
                 <form method="POST" action="update-profile.php">
-                    <input type="hidden" id="org_id" name="org_id" value="<?php echo $org_id; ?>">    
+                    <input type="hidden" name="org_id" value="<?php echo htmlspecialchars($org_id); ?>">    
 
-                    <label for="name">Name</label>
-                    <input type="text" id="org_name" name="org_name" class="input" value="<?php echo $name; ?>" required>
+                    <label for="org_name">Name</label>
+                    <input type="text" id="org_name" name="org_name" class="input" value="<?php echo htmlspecialchars($name); ?>" required>
                     
-                    <label for="email">Email</label>
-                    <input type="email" id="org_email" name="org_email" class="input" value="<?php echo $email; ?>"required>
+                    <label for="org_email">Email</label>
+                    <input type="email" id="org_email" name="org_email" class="input" value="<?php echo htmlspecialchars($email); ?>" required>
                     
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="org_phone" name="org_phone" class="input" value="<?php echo $phone; ?>" required>
+                    <label for="org_phone">Phone Number</label>
+                    <input type="tel" id="org_phone" name="org_phone" class="input" value="<?php echo htmlspecialchars($phone); ?>" required>
                     
                     <input type="submit" name="submit" value="Update Profile">
                     
