@@ -17,7 +17,7 @@ include('../organizer/verify-org.php');
 
 $org_id = $_SESSION['org_id'];
 
-$result = $conn->query("SELECT * FROM organizer WHERE org_id='$org_id'");
+$result = $conn->query("SELECT * FROM organizer WHERE org_id='$org_id';");
 
 ?>
 
@@ -47,26 +47,26 @@ $result = $conn->query("SELECT * FROM organizer WHERE org_id='$org_id'");
                     <input type="hidden" name="org_id" value="<?php echo htmlspecialchars($org_id); ?>">    
 
                     <label for="org_name">Name</label>
-                    <input type="text" id="org_name" name="org_name" class="input" value="<?php echo htmlspecialchars($name); ?>" required>
+                    <input type="text" id="org_name" name="org_name" class="input" value="<?php echo htmlspecialchars($name); ?>" >
                     
                     <label for="org_email">Email</label>
-                    <input type="email" id="org_email" name="org_email" class="input" value="<?php echo htmlspecialchars($email); ?>" required>
+                    <input type="email" id="org_email" name="org_email" class="input" value="<?php echo htmlspecialchars($email); ?>" >
                     
                     <label for="org_phone">Phone Number</label>
-                    <input type="tel" id="org_phone" name="org_phone" class="input" value="<?php echo htmlspecialchars($phone); ?>" required>
+                    <input type="tel" id="org_phone" name="org_phone" class="input" value="<?php echo htmlspecialchars($phone); ?>" >
                     
                     <input type="submit" name="submit" value="Update Profile">
                     
                     <h2 class="title">Change Password</h2>
                     
                     <label for="old_password">Old Password</label>
-                    <input type="password" id="old_password" name="old_password" class="input" required>
+                    <input type="password" id="old_password" name="old_password" class="input" >
                     
                     <label for="new_password">New Password</label>
-                    <input type="password" id="new_password" name="new_password" class="input" required>
+                    <input type="password" id="new_password" name="new_password" class="input" >
                     
                     <label for="confirm_password">Re-enter New Password</label>
-                    <input type="password" id="confirm_password" name="confirm_password" class="input" required>
+                    <input type="password" id="confirm_password" name="confirm_password" class="input" >
                     
                     <input type="submit" name="change_password" value="Change Password">
                 </form>

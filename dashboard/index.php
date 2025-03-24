@@ -16,7 +16,7 @@ if (!isset($_SESSION['org_id'])) {
 $org_id = $_SESSION['org_id'];
 
 // Fetch events from the database
-$result = $conn->query("SELECT * FROM `event` WHERE org_id='$org_id' ORDER BY event_date ASC;");
+$result = $conn->query("SELECT FROM 'event' WHERE org_id='$org_id';");
 
 ?>
 
