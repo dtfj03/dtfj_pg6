@@ -34,6 +34,7 @@ $result = $conn->query("SELECT * FROM organizer WHERE org_id='$org_id'");
     <div class="dashboard-wrapper">
         <aside class="sidebar">
             <ul>
+                <li><a href="../dashboard/"></i> Home</a></li>
                 <li><a href="../dashboard/add-event.php"><i class="fas fa-calendar-plus"></i> Add Event</a></li>
                 <li><a href="edit-profile.php"><i class="fas fa-user-edit"></i> Edit Profile</a></li>
                 <li><a href="../login/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>

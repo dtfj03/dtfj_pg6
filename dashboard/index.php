@@ -33,6 +33,7 @@ $result = $conn->query("SELECT * FROM `event` WHERE org_id='$org_id' ORDER BY ev
     <div class="dashboard-wrapper">
         <aside class="sidebar">
             <ul>
+                <li><a href="../dashboard/"></i> Home</a></li>
                 <li><a href="add-event.php"><i class="fas fa-calendar-plus"></i> Add Event</a></li>
                 <li><a href="../organizer/edit-profile.php"><i class="fas fa-user-edit"></i> Edit Profile</a></li>
                 <li><a href="../login/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
